@@ -5,15 +5,19 @@ export default {
     return apiFront.get("/usuario");
   },
 
+  buscarPorId(id) {
+    return apiFront.get(`/usuario/id?id=${id}`);
+  },
+
   criar(usuario) {
     return apiFront.post("/usuario", usuario);
   },
 
-    deletar(email) {
-    return apiFront.delete(`/usuario?email=${email}`);
+  atualizar(id, usuario) {
+    return apiFront.put(`/usuario?id=${id}`, usuario);
   },
 
-    atualizar(id, usuario) {
-    return api.put(`/usuario/${id}`, usuario)
+  deletar(email) {
+    return apiFront.delete(`/usuario?email=${email}`);
   }
 };

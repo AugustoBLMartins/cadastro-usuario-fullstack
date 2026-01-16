@@ -24,6 +24,13 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService; //injetando a dependecia da service
 
+    @GetMapping("/id")
+    public ResponseEntity<Usuario> buscarPorId(@RequestParam Integer id){
+        Usuario u = usuarioService.buscarUsuarioPorId(id);
+        return ResponseEntity.ok(u);
+    }
+
+
     @PostMapping
     public ResponseEntity<Void> salvarUsuario(@RequestBody Usuario usuario){
         usuarioService.salvarUsuario(usuario);

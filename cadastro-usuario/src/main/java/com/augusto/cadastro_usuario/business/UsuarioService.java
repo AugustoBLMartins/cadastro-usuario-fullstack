@@ -12,6 +12,11 @@ public class UsuarioService {
     
     private final UsuarioRepository repository;
 
+    public Usuario buscarUsuarioPorId(Integer id) {
+        return repository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+
    public List<Usuario> listarTodos() {
         return repository.findAll();
     }

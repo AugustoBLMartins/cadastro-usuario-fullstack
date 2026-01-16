@@ -1,10 +1,10 @@
 <template>
   <div>
-    <router-link to="/novo" class="btn-novo">Novo Usuário</router-link>
+    <router-link :to="{ name: 'novoUsuario' }" class="btn-novo">Novo Usuário</router-link>
 
     <ul>
       <li v-for="usuario in usuarios" :key="usuario.id">
-       {{ usuario.nome }} - {{ usuario.email }}
+        {{ usuario.nome }} - {{ usuario.email }}
 
         <button @click="editar(usuario)" class="btn-editar">Editar</button>
         <button @click="remover(usuario.email)" class="btn-remover">Excluir</button>
@@ -19,7 +19,7 @@ import usuarioService from "../service/usuarioService";
 export default {
   data() {
     return {
-      usuarios: [],
+      usuarios: []
     };
   },
 
@@ -29,7 +29,8 @@ export default {
 
   methods: {
     editar(usuario) {
-      this.$router.push({ name: 'formUsuario', query: { id: usuario.id } });
+      // usa params da rota para editar
+      this.$router.push({ name: "editarUsuario", params: { id: usuario.id } });
     },
 
     carregarUsuarios() {
@@ -42,7 +43,7 @@ export default {
       usuarioService.deletar(email).then(() => {
         this.carregarUsuarios();
       });
-    },
-  },
+    }
+  }
 };
 </script>
