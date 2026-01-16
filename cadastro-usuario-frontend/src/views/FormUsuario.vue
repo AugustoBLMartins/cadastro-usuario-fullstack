@@ -13,7 +13,7 @@
         <input v-model="usuario.email" type="email" required />
       </div>
 
-      <button type="submit">Salvar</button>
+      <button type="submit" class="btn-novo">Salvar</button>
     </form>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       usuario: {
+        id: null,
         nome: "",
         email: "",
       },
@@ -35,16 +36,14 @@ export default {
 
   methods: {
     salvar() {
-      usuarioService.criar(this.usuario)
-        .then(() => {
-          alert("Usuário cadastrado com sucesso!");
-          this.$router.push("/");
-        })
-        .catch(error => {
-          console.error(error);
-          alert("Erro ao cadastrar usuário");
-        });
-    },
+      if (this.usuario.id) {
+          usuarioService.atualizar(this.usuario.id, this.usuario)
+          .then(() => this.$router.push('/'))
+      } else {
+        usuarioService.criar(this.usuario)
+          .then(() => this.$router.push('/'))
+      }
+    }
   },
 };
 </script>

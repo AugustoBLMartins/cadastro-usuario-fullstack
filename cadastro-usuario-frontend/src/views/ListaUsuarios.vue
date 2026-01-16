@@ -1,13 +1,13 @@
 <template>
   <div>
-    <router-link to="/novo">Novo Usuário</router-link>
+    <router-link to="/novo" class="btn-novo">Novo Usuário</router-link>
 
     <ul>
       <li v-for="usuario in usuarios" :key="usuario.id">
-        {{ usuario.nome }} - {{ usuario.email }}
+       {{ usuario.nome }} - {{ usuario.email }}
 
-        <router-link :to="`/editar/${usuario.id}`">Editar</router-link>
-        <button @click="remover(usuario.id)">Excluir</button>
+        <button @click="editar(usuario)" class="btn-editar">Editar</button>
+        <button @click="remover(usuario.email)" class="btn-remover">Excluir</button>
       </li>
     </ul>
   </div>
@@ -28,14 +28,18 @@ export default {
   },
 
   methods: {
+    editar(usuario) {
+      this.$router.push({ name: 'formUsuario', query: { id: usuario.id } });
+    },
+
     carregarUsuarios() {
       usuarioService.listar().then(response => {
         this.usuarios = response.data;
       });
     },
 
-    remover(id) {
-      usuarioService.deletar(id).then(() => {
+    remover(email) {
+      usuarioService.deletar(email).then(() => {
         this.carregarUsuarios();
       });
     },
